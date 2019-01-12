@@ -1,0 +1,25 @@
+{
+    "name": "avrcore",
+    "keywords": [
+        "avr",
+        "twi",
+        "twowire",
+        "2-wire"
+    ],
+    "description": "Core library for common AVR MCUs and peripherals",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/isrlabs/isrlabs"
+    },
+    "authors": [
+        {
+            "name": "Kyle Isom",
+            "email": "kyle@imap.cc",
+            "url": "https://kyleisom.net",
+            "maintainer": true
+        }
+    ],
+    "version": "1.0.0",
+    "platforms": "atmelavr"
+}
+
