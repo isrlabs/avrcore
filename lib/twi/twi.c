@@ -3,9 +3,11 @@
  * I2C library for avrcore.
  */
 
+
 #include <avr/io.h>
 #include <util/twi.h>
 #include "twi.h"
+
 
 /*
  * twi_init starts an I2C master with a 100kHz bus.
@@ -16,6 +18,7 @@ twi_init()
 	TWSR = 0;
 	TWBR = ((F_CPU / 100000UL) - 16) / 2;
 }
+
 
 /*
  * twi_init starts an I2C master with a 400kHz bus.
@@ -28,6 +31,9 @@ twi_init_fast()
 }
 
 
+/*
+ * twi_sendto starts a transmission to a device.
+ */
 uint8_t
 twi_sendto(uint8_t address)
 {
@@ -56,6 +62,9 @@ twi_sendto(uint8_t address)
 }
 
 
+/*
+ * twi_write writes a byte to a previously-addressed device.
+ */
 uint8_t
 twi_write(uint8_t data)
 {
@@ -75,6 +84,9 @@ twi_write(uint8_t data)
 }
 
 
+/*
+ * recvfrom begins a request for data from a device.
+ */
 uint8_t
 twi_recvfrom(uint8_t address)
 {
@@ -103,6 +115,9 @@ twi_recvfrom(uint8_t address)
 }
 
 
+/*
+ * twi_read attempts to read a byte with a NAK from a slave device.
+ */
 uint8_t
 twi_read(uint8_t *data)
 {

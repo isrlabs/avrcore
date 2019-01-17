@@ -3,11 +3,14 @@
  * I2C library for avrcore.
  */
 
+
 #ifndef __AVRCORE_TWI_H
 #define __AVRCORE_TWI_H
 
+
 #include <avr/io.h>
 #include <util/twi.h>
+
 
 #define		TWI_SCL_SLOW	100000UL
 #define		TWI_SCL_FAST	400000UL
@@ -16,12 +19,14 @@
 #define		TWI_STATUS_NACK		1
 #define		TWI_STATUS_PROTO	2
 
+
 void		twi_init(void);
 void		twi_init_fast(void);
 uint8_t		twi_sendto(uint8_t);
 uint8_t		twi_recvfrom(uint8_t);
 uint8_t		twi_write(uint8_t);
 uint8_t		twi_read(uint8_t *);
+
 
 inline void
 twi_stop(void)
@@ -30,17 +35,20 @@ twi_stop(void)
 	while (TWCR & _BV(TWSTO)) ; /* wait for bus release */
 }
 
+
 inline void
 twi_start(void)
 {
 	TWCR = _BV(TWINT) | _BV(TWSTA) | _BV(TWEN);
 }
 
+
 inline void
 twi_clear(void)
 {
 	TWCR = _BV(TWINT) | _BV(TWEN);
 }
+
 
 inline uint8_t
 twi_wait(void)
