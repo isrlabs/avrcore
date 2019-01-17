@@ -9,7 +9,12 @@
 #include <avr/io.h>
 #include <util/twi.h>
 
-#define TWI_ATTEMPTS	128
+#define		TWI_SCL_SLOW	100000UL
+#define		TWI_SCL_FAST	400000UL
+
+#define		TWI_STATUS_ACK		0
+#define		TWI_STATUS_NACK		1
+#define		TWI_STATUS_PROTO	2
 
 void		twi_init(void);
 void		twi_init_fast(void);
