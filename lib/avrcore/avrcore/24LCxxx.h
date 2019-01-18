@@ -39,10 +39,12 @@
 /*
  * EEPROM_BASE_ADDRESS is the base address for the 24LCxxx EEPROMs.
  * EEPROM_ADDRESS_BITS calculates the address given the address bits.
+ * EEPROM_PAGE_SIZE calculates the max page size for an EEPROM.
  */
 #define		EEPROM_BASE_ADDRESS	0x50
 #define		EEPROM_ADDRESS(a0, a1, a2) \
 		(EEPROM_BASE_ADDRESS | (a2 << 2) | (a1 << 1) | a2)
+#define		EEPROM_PAGE_SIZE(bits)	(bits >> 2)
 
 
 /*
