@@ -76,3 +76,26 @@ serial_block_receive_byte()
 	return UDR0;
 }
 
+/*
+ * serial_print writes characters from buf until it encounters a NUL byte.
+ */
+void
+serial_print(char *data)
+{
+	while (*data != '\0') {
+		serial_block_transmit_byte(*data);
+		*data++;
+	}
+}
+
+/*
+ * serial_println calls serial_print on the data, then writes a carriage
+ * return and newline.
+ */
+void
+serial_println(char *data)
+{
+	serial_print(data);
+	serial_block_transmit_byte('\r');
+	serial_block_transmit_byte('\n');
+}

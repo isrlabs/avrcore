@@ -16,14 +16,24 @@
  */
 
 
-#ifndef __SERIAL_H__
-#define __SERIAL_H__
+#ifndef __AVRCORE_SERIAL_H
+#define __AVRCORE_SERIAL_H
+
+/**
+ @file
+ @defgroup isr_avrcore
+ @code #include "serial.h" @endcode
+
+ @brief AVR UART interface.
+ 
+ This library implements basic UART reading and writing routines.
+ */
 
 #include <avr/io.h>
 
 
 #ifndef F_CPU
-#error F_CPU is not defined -- will not be able to calculate serial speeds!
+#error F_CPU is not defined.
 #endif
 
 
@@ -34,6 +44,9 @@ void		serial_init(int, int);
 void		serial_block_transmit_byte(unsigned char);
 void		serial_transmit(unsigned char *, unsigned int);
 unsigned char	serial_block_receive_byte(void);
+void		serial_print(char *);
+void		serial_println(char *);
 
-#endif
+
+#endif /* __AVRCORE_SERIAL_H */
 

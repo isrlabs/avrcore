@@ -4,6 +4,26 @@
  */
 
 
+/**
+ @file
+ @defgroup isr_avrcore
+ @code #include "twi.h" @endcode
+
+ @brief AVR two-wire (e.g. I2C) master 
+ 
+ This library implements basic TWI primitives that can be used as building
+ blocks for other peripheral libraries. It currently requires hardware
+ support for TWI; this precludes using this with the tiny84/85.
+
+ Unless the board already supports it, 4.7K resistors should be used to pull
+ SDA and SCL up to the proper voltage.
+
+ @note
+     On the Arduino Uno, SDA is pin and SCL is pin .
+
+ */
+
+
 #ifndef __AVRCORE_TWI_H
 #define __AVRCORE_TWI_H
 
@@ -60,4 +80,4 @@ twi_wait(void)
 }
 
 
-#endif
+#endif /* __AVRCORE_TWI_H */
