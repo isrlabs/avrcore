@@ -1,6 +1,7 @@
 #include <avr/io.h>
 #include <util/twi.h>
-#include "twi.h"
+
+#include <avrcore/twi.h>
 
 
 void

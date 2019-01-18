@@ -1,7 +1,7 @@
 #include <avr/io.h>
-#include "serial.h"
-#include "twi.h"
-#include "24LCxxx.h"
+#include <avrcore/serial.h>
+#include <avrcore/twi.h>
+#include <avrcore/24LCxxx.h>
 
 
 #define EEPROM		0x50

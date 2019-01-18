@@ -1,5 +1,6 @@
 #include <avr/io.h>
-#include "serial.h"
+
+#include <avrcore/serial.h>
 
 void
 serial_init(uint32_t baud, uint8_t ffmt)
