@@ -1,9 +1,3 @@
-/*
- * i2c.c
- * I2C library for avrcore.
- */
-
-
 #include <avr/io.h>
 #include <util/twi.h>
 #include "twi.h"
@@ -110,9 +104,14 @@ twi_read(uint8_t *data)
 
 	switch (twst) {
 	case TW_MR_DATA_ACK:
+		/*
+		 * A NAK is expected, but if the device ends transmission,
+		 * this byte may be useful.
+		 */
 		*data = TWDR;
 		return TWI_STATUS_ACK;
 	case TW_MR_DATA_NACK:
+		*data = TWDR;
 		return TWI_STATUS_NACK;
 	default:
 		return TWI_STATUS_PROTO;
@@ -133,8 +132,14 @@ twi_read_multi(uint8_t *data)
 		*data = TWDR;
 		return TWI_STATUS_ACK;
 	case TW_MR_DATA_NACK:
+		/*
+		 * An ACK is expected, but if the device ends transmission,
+		 * this byte may be useful.
+		 */
+		*data = TWDR;
 		return TWI_STATUS_NACK;
 	default:
 		return TWI_STATUS_PROTO;
 	}
+
 }
