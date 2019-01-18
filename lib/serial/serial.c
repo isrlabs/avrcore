@@ -2,11 +2,11 @@
 #include "serial.h"
 
 void
-serial_init(int baud, int ffmt)
+serial_init(uint32_t baud, uint8_t ffmt)
 {
 	int	ubrr;
 
-	ubrr = SERIAL_SPEED(baud);
+	ubrr = (uint8_t)SERIAL_SPEED(baud);
 	UBRR0H = (unsigned char)(ubrr >> 8);
 	UBRR0L = (unsigned char)ubrr;
 	UCSR0B = (1 << RXEN0) | (1 << TXEN0);
@@ -26,7 +26,7 @@ serial_block_transmit_byte(unsigned char b)
 
 
 void
-serial_transmit(unsigned char *data, unsigned int len)
+serial_transmit(uint8_t *data, uint8_t len)
 {
 	unsigned int	curbyte = 0;
 	while (curbyte < len)
@@ -47,7 +47,7 @@ serial_print(char *data)
 {
 	while (*data != '\0') {
 		serial_block_transmit_byte(*data);
-		*data++;
+		data++;
 	}
 }
 
