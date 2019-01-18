@@ -36,16 +36,40 @@
 #include "twi.h"
 
 
+/*
+ * EEPROM_BASE_ADDRESS is the base address for the 24LCxxx EEPROMs.
+ * EEPROM_ADDRESS_BITS calculates the address given the address bits.
+ */
 #define		EEPROM_BASE_ADDRESS	0x50
-#define		EEPROM_ADDRESS_BITS(a0, a1, a2) ((a2 << 2) | (a1 << 1) | a2)
+#define		EEPROM_ADDRESS(a0, a1, a2) \
+		(EEPROM_BASE_ADDRESS | (a2 << 2) | (a1 << 1) | a2)
 
 
+/*
+ * eeprom_write writes a byte to the EEPROM.
+ */
 uint8_t		eeprom_write(uint8_t device, uint16_t address, uint8_t data);
+
+/*
+ * eeprom_read reads a byte from the EEPROM.
+ */
 uint8_t		eeprom_read(uint8_t device, uint16_t address);
+
+/*
+ * eeprom_write_buffer writes up to a page's worth of data from the EEPROM.
+ */
 uint8_t		eeprom_write_buffer(uint8_t device, uint16_t address,
 				    uint8_t *data, uint8_t datalen);
+
+/*
+ * eeprom_read_buffer reads up to a page's worth of data from the EEPROM.
+ */
 uint8_t		eeprom_read_buffer(uint8_t device, uint16_t address,
 				   uint8_t *data, uint8_t datalen);
+
+/*
+ * eeprom_write_wait performs ACK polling on the device.
+ */
 uint8_t		eeprom_write_wait(uint8_t device);
 
 
