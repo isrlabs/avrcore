@@ -91,5 +91,15 @@ void		serial_print(char *);
  */
 void		serial_println(char *);
 
+/*
+ * serial_hexdump writes a hex dump to the UART.
+ */
+void		serial_hexdump(uint8_t *, uint8_t);
+
+/*
+ * serial_newline writes a newline to the UART.
+ */
+void		serial_newline(void);
+
 
 #endif /* __AVRCORE_SERIAL_H */

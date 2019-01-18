@@ -57,6 +57,41 @@ void
 serial_println(char *data)
 {
 	serial_print(data);
+	serial_newline();
+}
+
+
+static inline void
+hexify(uint8_t *byte)
+{
+	if (*byte < 0xA) {
+		*byte += 0x30;
+	} else {
+		*byte = (*byte - 0xA) + 0x41;
+	}
+}
+
+void
+serial_hexdump(uint8_t *buf, uint8_t buflen)
+{
+	uint8_t	hv[2];
+	uint8_t	 i;
+
+	for (i = 0; i < buflen; i++) {
+		hv[0] = ((buf[i] & 0xF0) >> 4);
+		hv[1] = buf[i] & 0x0F;
+		hexify(&hv[0]);
+		hexify(&hv[1]);
+		serial_block_transmit_byte(hv[0]);
+		serial_block_transmit_byte(hv[1]);
+		if (i < (buflen - 1)) serial_block_transmit_byte(0x20);
+	}
+}
+
+
+void
+serial_newline()
+{
 	serial_block_transmit_byte('\r');
 	serial_block_transmit_byte('\n');
 }

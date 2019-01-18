@@ -21,23 +21,25 @@ main(void)
 	serial_block_transmit_byte('>');
 
 	twi_init();
-	ret = eeprom_write_buffer(EEPROM, 0, data, WRSZ);
-	if (ret) {
-		serial_block_transmit_byte('!');
-		serial_block_transmit_byte(ret + 0x30);
-		serial_block_transmit_byte('\r');
-		serial_block_transmit_byte('\n');
-		goto loop;
-	}
+	/*
+	 * ret = eeprom_write_buffer(EEPROM, 0, data, WRSZ);
+	 * if (ret) {
+	 * 	serial_block_transmit_byte('!');
+	 * 	serial_block_transmit_byte(ret + 0x30);
+	 * 	serial_block_transmit_byte('\r');
+	 * 	serial_block_transmit_byte('\n');
+	 * 	goto loop;
+	 * }
 
-	ret = eeprom_write_wait(EEPROM);
-	if (ret) {
-		serial_block_transmit_byte('!');
-		serial_block_transmit_byte(ret + 0x30);
-		serial_block_transmit_byte('\r');
-		serial_block_transmit_byte('\n');
-		goto loop;
-	}
+	 * ret = eeprom_write_wait(EEPROM);
+	 * if (ret) {
+	 * 	serial_block_transmit_byte('!');
+	 * 	serial_block_transmit_byte(ret + 0x30);
+	 * 	serial_block_transmit_byte('\r');
+	 * 	serial_block_transmit_byte('\n');
+	 * 	goto loop;
+	 * }
+	 */
 	
 	ret = eeprom_read_buffer(EEPROM, 0, buf, WRSZ);
 	if (ret) {
@@ -48,7 +50,8 @@ main(void)
 		goto loop;
 	} 
 
-	serial_println((char *)buf);
+	serial_hexdump(buf, 7);
+	serial_newline();
 
 loop:
 	while (1) ;
