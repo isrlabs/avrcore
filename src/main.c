@@ -5,23 +5,23 @@
 
 
 #define EEPROM		0x50
-
+#define WRSZ		7
 
 int
 main(void)
 {
 	uint8_t	data[] = "avrcore";
-	uint8_t	buf[13];
+	uint8_t	buf[16];
 	uint8_t	i, ret;
 
-	for (i = 0; i < 13; i++)
+	for (i = 0; i < 16; i++)
 		buf[i] = 0; /* set up buf as a string */
 
 	serial_init(9600, 0);
 	serial_block_transmit_byte('>');
 
 	twi_init();
-	ret = eeprom_write_buffer(EEPROM, 0, data, 7);
+	ret = eeprom_write_buffer(EEPROM, 0, data, WRSZ);
 	if (ret) {
 		serial_block_transmit_byte('!');
 		serial_block_transmit_byte(ret + 0x30);
@@ -39,7 +39,7 @@ main(void)
 		goto loop;
 	}
 	
-	ret = eeprom_read_buffer(EEPROM, 0, buf, 7);
+	ret = eeprom_read_buffer(EEPROM, 0, buf, WRSZ);
 	if (ret) {
 		serial_block_transmit_byte('!');
 		serial_block_transmit_byte(ret + 0x30);

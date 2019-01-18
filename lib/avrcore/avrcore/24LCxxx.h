@@ -22,7 +22,7 @@
  */
 
 /*
- * lib/24LCxxx/24LCxxx.h
+ * lib/avrcore/avrcore/24LCxxx.h
  * AVR two-wire (e.g. I2C) EEPROM peripheral library
  *
  * This library implements support for the 24LCXXX series of TWI EEPROMs.

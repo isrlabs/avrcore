@@ -22,7 +22,7 @@
  */
 
 /*
- * lib/serial/serial.h
+ * lib/avrcore/avrcore/serial.h
  * AVR UART library
  *
  * This library implements basic UART primitives for transmitting and

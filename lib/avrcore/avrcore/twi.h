@@ -22,7 +22,7 @@
  */
 
 /*
- * lib/twi/twi.h
+ * lib/avrcore/avrcore/twi.h
  * AVR two-wire (e.g. I2C) master
  *
  * This library implements basic TWI primitives that can be used as building
