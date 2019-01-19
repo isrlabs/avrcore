@@ -22,7 +22,7 @@
  */
 
 /*
- * lib/avrcore/avrcore/serial.h
+ * lib/avrcore/avrcore/uart.h
  * AVR UART library
  *
  * This library implements basic UART primitives for transmitting and
@@ -30,40 +30,49 @@
  */
 
 
-#ifndef __AVRCORE_SERIAL_H
-#define __AVRCORE_SERIAL_H
+#ifndef __AVRCORE_UART_H
+#define __AVRCORE_UART_H
 
 
-#include <stdint.h>
+#include <avr/io.h>
+
+
+#ifndef F_CPU
+#error F_CPU is not defined.
+#endif
 
 
 /*
- * serial_transmit waits until the transmit buffer is ready, then sends
- * a buffer to the UART is complete.
+ * SERIAL_SPEED is a utility for calculating the correct register value
+ * for a given baudrate.
  */
-void		serial_transmit(uint8_t *, uint8_t);
+#define UART_SPEED(bps)	((F_CPU / (bps) / 16) - 1)
 
 /*
- * serial_print writes a string to the UART, stopping when it encounters
- * a NUL byte.
+ * FRAME_8N1 is the register value for the common 8N1 frame format.
  */
-void		serial_print(char *);
+#define		FRAME_8N1	(3 << UCSZ00)
+
 
 /*
- * serial_println writes a string to the UART, stopping when it encounters
- * a NUL byte. Then, it sends a carriage return and newline.
+ * uart_init sets up the UART, taking as arguments the baudrate and
+ * frame format. If the frame format is 0, the standard 8N1 format is
+ * used.
  */
-void		serial_println(char *);
+void		uart_init(uint32_t, uint8_t);
 
 /*
- * serial_hexdump writes a hex dump to the UART.
+ * uart_block_transmit_byte waits until the transmit buffer is ready,
+ * then puts the byte on the transmit buffer.
  */
-void		serial_hexdump(uint8_t *, uint8_t);
+void		uart_block_transmit_byte(uint8_t);
+
 
 /*
- * serial_newline writes a newline to the UART.
+ * uart_block_receive_byte reads a byte from the UART, blocking until a
+ * byte is available.
  */
-void		serial_newline(void);
+uint8_t		uart_block_receive_byte(void);
 
 
-#endif /* __AVRCORE_SERIAL_H */
+#endif /* __AVRCORE_UART_H */

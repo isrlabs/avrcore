@@ -1,29 +1,5 @@
-#include <avr/io.h>
-
+#include <avrcore/uart.h>
 #include <avrcore/serial.h>
-
-void
-serial_init(uint32_t baud, uint8_t ffmt)
-{
-	int	ubrr;
-
-	ubrr = (uint8_t)SERIAL_SPEED(baud);
-	UBRR0H = (unsigned char)(ubrr >> 8);
-	UBRR0L = (unsigned char)ubrr;
-	UCSR0B = (1 << RXEN0) | (1 << TXEN0);
-
-	if (0 == ffmt)
-		ffmt = SERIAL_8N1;
-	UCSR0C = ffmt;
-}
-
-
-void
-serial_block_transmit_byte(unsigned char b)
-{
-	while (!(UCSR0A & (1 << UDRE0))) ;
-	UDR0 = b;
-}
 
 
 void
@@ -31,15 +7,7 @@ serial_transmit(uint8_t *data, uint8_t len)
 {
 	unsigned int	curbyte = 0;
 	while (curbyte < len)
-		serial_block_transmit_byte(data[curbyte++]);
-}
-
-
-unsigned char
-serial_block_receive_byte()
-{
-	while (!(UCSR0A & (1 << RXC0))) ;
-	return UDR0;
+		uart_block_transmit_byte(data[curbyte++]);
 }
 
 
@@ -47,7 +15,7 @@ void
 serial_print(char *data)
 {
 	while (*data != '\0') {
-		serial_block_transmit_byte(*data);
+		uart_block_transmit_byte(*data);
 		data++;
 	}
 }
@@ -82,9 +50,9 @@ serial_hexdump(uint8_t *buf, uint8_t buflen)
 		hv[1] = buf[i] & 0x0F;
 		hexify(&hv[0]);
 		hexify(&hv[1]);
-		serial_block_transmit_byte(hv[0]);
-		serial_block_transmit_byte(hv[1]);
-		if (i < (buflen - 1)) serial_block_transmit_byte(0x20);
+		uart_block_transmit_byte(hv[0]);
+		uart_block_transmit_byte(hv[1]);
+		if (i < (buflen - 1)) uart_block_transmit_byte(0x20);
 	}
 }
 
@@ -92,6 +60,6 @@ serial_hexdump(uint8_t *buf, uint8_t buflen)
 void
 serial_newline()
 {
-	serial_block_transmit_byte('\r');
-	serial_block_transmit_byte('\n');
+	uart_block_transmit_byte('\r');
+	uart_block_transmit_byte('\n');
 }

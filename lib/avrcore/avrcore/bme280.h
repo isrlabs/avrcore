@@ -22,48 +22,13 @@
  */
 
 /*
- * lib/avrcore/avrcore/serial.h
- * AVR UART library
+ * lib/avrcore/avrcore/bme280.h
+ * AVR BME280 environmental sensor.
  *
- * This library implements basic UART primitives for transmitting and
- * receiving data on the UART. It assumes hardware support for the UART.
+ * This library interfaces with the BME280 environmental sensor over I2C
+ * for use in weather monitoring.
  */
 
 
-#ifndef __AVRCORE_SERIAL_H
-#define __AVRCORE_SERIAL_H
+#define		BME280_ADDRESS	0x77
 
-
-#include <stdint.h>
-
-
-/*
- * serial_transmit waits until the transmit buffer is ready, then sends
- * a buffer to the UART is complete.
- */
-void		serial_transmit(uint8_t *, uint8_t);
-
-/*
- * serial_print writes a string to the UART, stopping when it encounters
- * a NUL byte.
- */
-void		serial_print(char *);
-
-/*
- * serial_println writes a string to the UART, stopping when it encounters
- * a NUL byte. Then, it sends a carriage return and newline.
- */
-void		serial_println(char *);
-
-/*
- * serial_hexdump writes a hex dump to the UART.
- */
-void		serial_hexdump(uint8_t *, uint8_t);
-
-/*
- * serial_newline writes a newline to the UART.
- */
-void		serial_newline(void);
-
-
-#endif /* __AVRCORE_SERIAL_H */
